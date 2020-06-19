@@ -65,6 +65,14 @@ let history = [
       }
 ]
 
+export const logIn = (username, password) => {
+  return new Promise((resolve, reject) => {
+      setTimeout(() => {resolve({
+        token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkRhdmlkMiIsImlhdCI6MTU5MjU4NDI4NCwiZXhwIjoxNTkyNjcwNjg0fQ.ZIj2CYrg5JZJeHfhfiaSPH2VdD8aVGI-MnEA1vOYNqU",
+        error: ""
+      })}, 500)
+  })
+}
 export const getFinance = () => {
     return new Promise((resolve, reject) => {
         setTimeout(() => {resolve({transactions, balance, income, expense})}, 500)
@@ -92,7 +100,7 @@ export const postExpense = (new_data) => {
     expense = String((parseFloat(expense) + new_data.amount).toFixed(2))
     transactions = [{...new_data, amount: String(new_data.amount.toFixed(2)), type:"expense"}, ...transactions]
     return new Promise((resolve, reject) => {
-        setTimeout(() => {resolve("success")}, 500)
+        setTimeout(() => {resolve("success")}, 20000)
     })
 }
 export const postIncome = (new_data) => {

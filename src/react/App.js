@@ -1,7 +1,7 @@
 import React from "react"
 import {Switch, Route} from "react-router-dom"
 import { makeStyles } from "@material-ui/core/styles"
-import {Home, Income, Expense} from "./pages"
+import {Home, Income, Expense, Login} from "./pages"
 
 const useStyles = makeStyles({
     app:{
@@ -38,6 +38,7 @@ const App = (props) => {
             <div className={classes.content}>
                 <Switch>
                     <Route exact path="/" component={Home} />
+                    <Route exact path="/login" component={Login} />
                     <Route exact path="/expense" component={Expense} />
                     <Route exact path="/income" component={Income} />
                 </Switch>
