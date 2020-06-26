@@ -1,6 +1,7 @@
 import { createBrowserHistory } from "history";
 import { configureStore } from "@reduxjs/toolkit";
 import { combineReducers } from "redux";
+import ApolloClient from "apollo-boost"
 import { connectRouter } from "connected-react-router";
 import {reducers as balanceReducers} from "./balance"
 import {reducers as transactionReducers} from "./transactions"
@@ -27,3 +28,11 @@ export const store = configureStore({
   preloadedState: {},
   devTools: process.env.NODE_ENV !== "production"
 });
+
+export const client = new ApolloClient({
+  uri: 'http://localhost:4000/graphql',
+  onError: ({ networkError, graphQLErrors }) => {
+    console.log('graphQLErrors', graphQLErrors)
+    console.log('networkError', networkError)
+  }
+})

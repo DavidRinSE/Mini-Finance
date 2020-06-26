@@ -49,8 +49,8 @@ const Login = () => {
         username: "",
         password: ""
     })
-    const [finished, setFinished] = React.useState(false)
-    const logInState = useSelector(redux => redux.auth.logIn)
+    // const [finished, setFinished] = React.useState(false)
+    const loginState = useSelector(redux => redux.auth.login)
     const dispatch = useDispatch()
     
     const handleChange = (event) => {
@@ -112,20 +112,23 @@ const Login = () => {
                             color="primary"
                             variant="contained"
                             size="small"
-                            disabled={logInState.loading}
+                            disabled={loginState.loading}
                             onClick={() => {
                                 dispatch(getLoginToken(state))
-                                setFinished(true)
+                                // setFinished(true)
                             }} 
                         >
                             Login
                         </Button>
                     </Grid>
                 </Grid>
-                {logInState.loading && 
-                    <div item className={classes.loading}>
+                {loginState.loading && 
+                    <div className={classes.loading}>
                         <CircularProgress size={20}/>
                     </div>
+                }
+                {loginState.error &&
+                    <p>{ loginState.error }</p>
                 }
             </Grid>
         </Grid>
