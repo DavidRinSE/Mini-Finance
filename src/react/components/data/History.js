@@ -33,10 +33,10 @@ const History = (props) => {
         if(!history.result && !history.loading){
             dispatch(getHistory())
         }
-        if(history.result && history.result.history){
+        if(history.result){
             const myChartRef = chartRef.current.getContext("2d")
-            const labels = history.result.history.map(historyObj => historyObj.startDate).reverse()
-            const expenses = history.result.history.map(historyObj => historyObj.expense).reverse()
+            const labels = history.result.map(historyObj => historyObj.startDate).reverse()
+            const expenses = history.result.map(historyObj => parseFloat(historyObj.expense / 100).toFixed(2)).reverse()
             new Chart(myChartRef, {
                 type: "line",
                 data: {

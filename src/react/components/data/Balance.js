@@ -29,6 +29,10 @@ const useStyles = makeStyles(() => ({
 
 const Balance = (props) => {
     const classes = useStyles()
+    let {balance, income, expense} = props.data
+    balance = (balance === 0) ? 0 : parseFloat(props.data.balance / 100).toFixed(2)
+    income = (income === 0) ? 0 : parseFloat(props.data.income / 100).toFixed(2)
+    expense  = (expense === 0) ? 0 : parseFloat(props.data.expense / 100).toFixed(2)
     return (
         <div className={classes.wrapper}>
             <h1 className={classes.title}>Account Details</h1>
@@ -37,21 +41,21 @@ const Balance = (props) => {
                 justify="space-between"
             >
                 <h2 className={classes.med}>Balance</h2>
-                <h2 className={classes.med}>${props.data.balance}</h2>
+                <h2 className={classes.med}>${balance}</h2>
             </Grid>
             <Grid
                 container
                 justify="space-between"
             >
                 <h2 className={classes.small}>Income</h2>
-                <h2 className={classes.small}>${props.data.income}</h2>
+                <h2 className={classes.small}>${income}</h2>
             </Grid>
             <Grid
                 container
                 justify="space-between"
             >
                 <h2 className={classes.small}>Expenses</h2>
-                <h2 className={classes.small}>${props.data.expense}</h2>
+                <h2 className={classes.small}>${expense}</h2>
             </Grid>
         </div>
     )

@@ -30,9 +30,17 @@ export const store = configureStore({
 });
 
 export const client = new ApolloClient({
-  uri: 'http://localhost:4000/graphql',
+  uri: 'http://10.0.0.104:4000/graphql', // My PC's network address, so I can test with my iPhone and other local devices
   onError: ({ networkError, graphQLErrors }) => {
     console.log('graphQLErrors', graphQLErrors)
     console.log('networkError', networkError)
+  },
+  request: (operation) => {
+    const token = store.getState().auth.login.result
+    operation.setContext({
+      headers: {
+        authorization: token ? `Bearer ${token}`:''
+      }
+    })
   }
 })

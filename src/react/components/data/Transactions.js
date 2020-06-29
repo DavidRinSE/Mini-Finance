@@ -25,7 +25,7 @@ const Transactions = (props) => {
     const classes = useStyles()
     let transactions = []
     if(props.data){
-        transactions = props.data.map(trans => <Grid item style={{width: "100%"}}><Transaction data={trans} key={trans.id}/></Grid>)
+        transactions = props.data.map(trans => <Grid item style={{width: "100%"}} key={trans.id}><Transaction data={trans}/></Grid>)
     }
     return (
         <div className={classes.wrapper}>

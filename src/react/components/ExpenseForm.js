@@ -182,7 +182,7 @@ const ExpenseForm = (props) => {
                 </Grid>
             </Grid>
             {postState.loading && 
-                <div item className={classes.loading}>
+                <div className={classes.loading}>
                     <CircularProgress size={20}/>
                 </div>
             }

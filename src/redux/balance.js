@@ -7,13 +7,38 @@ import {
     createActions,
     createReducer
 } from "./helpers"
-import {getFinance} from "./data"
+import {client} from './index'
+import {gql} from 'apollo-boost'
 
 export const GET_BALANCE = createActions("GET_BALANCE")
 export const getBalance = () => dispatch => {
     dispatch(GET_BALANCE.START());
 
-    return getFinance().then(res => dispatch(GET_BALANCE.SUCCESS(res)))
+    return client.query({
+        query: gql`
+            query user {
+                user {
+                    balance
+                    expense
+                    income
+                    transactions {
+                        id
+                        name
+                        category
+                        amount
+                        date
+                        isExpense
+                      }
+                }
+            }
+        `
+    }).then(res => {
+        if (res.data && res.data.user){
+            dispatch(GET_BALANCE.SUCCESS(res.data.user))
+        } else {
+            dispatch(GET_BALANCE.FAIL("Something went wrong, please log out and try again."))
+        }
+    })
 }
 
 export const reducers = {
