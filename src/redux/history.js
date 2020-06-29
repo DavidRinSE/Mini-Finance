@@ -7,14 +7,37 @@ import {
     createActions,
     createReducer
 } from "./helpers"
-import {getHistory as getHistoryEndpoint, newPeriod as newPeriodEndpoint} from "./data"
+import {newPeriod as newPeriodEndpoint} from "./data"
 import {GET_BALANCE} from "./balance"
+import {client} from './index'
+import {gql} from 'apollo-boost'
 
 const GET_HISTORY = createActions("GET_HISTORY")
 export const getHistory = () => dispatch => {
-    dispatch(GET_HISTORY.START())
-    return getHistoryEndpoint().then((res) => {
-        dispatch(GET_HISTORY.SUCCESS(res))
+    dispatch(GET_HISTORY.START());
+
+    return client.query({
+        query: gql`
+            query history {
+                history {
+                    balance
+                    income
+                    expense
+                    startDate
+                    endDate
+                    categories {
+                      name
+                      amount
+                    }
+                }
+            }
+        `
+    }).then(res => {
+        if (res.data && res.data.history){
+            dispatch(GET_HISTORY.SUCCESS(res.data.history))
+        } else {
+            dispatch(GET_HISTORY.FAIL("Something went wrong, please log out and try again."))
+        }
     })
 }
 

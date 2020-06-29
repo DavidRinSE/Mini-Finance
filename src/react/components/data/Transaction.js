@@ -10,9 +10,10 @@ const useStyles = makeStyles({
 })
 
 const Transaction = (props) => {
-    let sign = (props.data.type === 'income') ? "+":"-"
-    let color = (props.data.type === 'income') ? "green":"red"
     let classes = useStyles()
+    let sign = (props.data.isExpense) ? "-":"+"
+    let color = (props.data.isExpense) ? "red":"green"
+    let amount = (props.data.amount === 0) ? 0 : parseFloat(props.data.amount / 100).toFixed(2)
     return (
         <Grid
             container
@@ -24,7 +25,7 @@ const Transaction = (props) => {
                 justify="space-between"
             >
                 <h3>{dateString(props.data.date)}</h3>
-                <h2 className={classes.amount} style={{color: color}}>{sign}${props.data.amount}</h2>
+                <h2 className={classes.amount} style={{color: color}}>{sign}${amount}</h2>
             </Grid>
         </Grid>
     )
