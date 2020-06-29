@@ -1,11 +1,9 @@
 import React from "react"
 import { makeStyles } from "@material-ui/core/styles"
-import { useDispatch } from "react-redux";
 import {AddCircleOutline} from "@material-ui/icons"
 import {RemoveCircleOutline} from "@material-ui/icons"
 import { NavLink } from "react-router-dom"
 import { Button } from "@material-ui/core"
-import {newPeriod} from "../../redux"
 
 const useStyles = makeStyles({
     topbar: {
@@ -36,20 +34,9 @@ const useStyles = makeStyles({
 const HomeTopbar = (props) => {
     const classes = useStyles()
     const forwardLink = React.forwardRef((props, ref) => <div ref={ref}><NavLink {...props} /></div>)
-    const dispatch = useDispatch()
     return (
         <div className={classes.topbar}>
             <div className={classes.buttonWrap}>
-                <Button
-                    className={classes.button}
-                    color="primary"
-                    variant="contained"
-                    startIcon={<AddCircleOutline/>}
-                    onClick={() => {
-                        dispatch(newPeriod())
-                    }}
-                    size="large" 
-                >New Period</Button>
                 <Button
                     className={classes.button}
                     color="primary"

@@ -7,32 +7,82 @@ import {
     createActions,
     createReducer
 } from "./helpers"
-import {postIncome as incomeEndpoint, postExpense as expenseEndpoint} from "./data"
-import {getBalance} from "./balance"
+import {GET_BALANCE} from "./balance"
+import {client} from "./index"
+import {gql} from "apollo-boost"
+import {createHistory as createHistoryAction} from "./history"
 
 const POST_INCOME = createActions("POST_INCOME")
-export const postIncome = (incomeData) => dispatch => {
+export const postIncome = (incomeData, createHistory) => async (dispatch, getStore) => {
+    createHistory = true
     dispatch(POST_INCOME.START());
-    let response = ""
-    return incomeEndpoint(incomeData).then(res => {
-        response = res
-        return dispatch(getBalance())
-    }).then(() => dispatch(POST_INCOME.SUCCESS(response)))
+    const {name, amount, date, category} = incomeData
+
+    if(createHistory) {
+        await dispatch(createHistoryAction(date))
+        if(!getStore().history.createHistory.result) {
+            return dispatch(POST_INCOME.FAIL("Something went wrong, please try again."))
+        }
+    }
+
+
+    return client.mutate({
+        mutation: gql`
+            mutation income {
+                createTransaction(name:"${name}", amount: ${parseInt(amount * 100)}, date: "${date}", isExpense:false, category:"${category}") {
+                    balance
+                    income
+                    expense
+                    transactions {
+                        name
+                        category
+                        amount
+                        date
+                        isExpense
+                    }
+                }
+            }
+        `
+    }).then(res => {
+        if (res.data && res.data.createTransaction){
+            dispatch(GET_BALANCE.SUCCESS(res.data.createTransaction))
+            return dispatch(POST_INCOME.SUCCESS())
+        } else {
+            return dispatch(POST_INCOME.FAIL((res.data.errors) ? res.data.errors : "Something went wrong, please try again."))
+        }
+    })
 }
 
 const POST_EXPENSE = createActions("POST_EXPENSE")
 export const postExpense = (expenseData) => dispatch => {
     dispatch(POST_EXPENSE.START());
-    let response = ""
-    return expenseEndpoint(expenseData).then(res => {
-        response = res
-        return dispatch(getBalance())
-    }).then(() => dispatch(POST_EXPENSE.SUCCESS(response)))
+    const {name, amount, date, category} = expenseData
+    return client.mutate({
+        mutation: gql`
+            mutation expense {
+                createTransaction(name:"${name}", amount: ${parseInt(amount * 100)}, date: "${date}", isExpense:true, category:"${category}") {
+                    balance
+                    income
+                    expense
+                    transactions {
+                        name
+                        category
+                        amount
+                        date
+                        isExpense
+                    }
+                }
+            }
+        `
+    }).then(res => {
+        if (res.data && res.data.createTransaction){
+            dispatch(GET_BALANCE.SUCCESS(res.data.createTransaction))
+            return dispatch(POST_EXPENSE.SUCCESS())
+        } else {
+            return dispatch(POST_EXPENSE.FAIL((res.data.errors) ? res.data.errors : "Something went wrong, please try again."))
+        }
+    })
 }
-
-// export const postExpense = (expenseData) => dispatch => {
-//     dispatch(_postExpense(expenseData)).then(() => dispatch(getBalance()))
-// }
 
 export const reducers = {
     postIncome: createReducer(initialState, {
