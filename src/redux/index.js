@@ -30,7 +30,7 @@ export const store = configureStore({
 });
 
 export const client = new ApolloClient({
-  uri: 'http://10.0.0.104:4000/graphql', // My PC's network address, so I can test with my iPhone and other local devices
+  uri: 'https://mini-finance-api.herokuapp.com/graphql',
   onError: ({ networkError, graphQLErrors }) => {
     console.log('graphQLErrors', graphQLErrors)
     console.log('networkError', networkError)

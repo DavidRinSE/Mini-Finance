@@ -42,8 +42,44 @@ export const getLoginToken = (data) => dispatch => {
     // return logIn(username, password).then(res => dispatch(LOG_IN.SUCCESS(res)))
 }
 
+export const SIGN_UP = createActions("SIGN_UP")
+export const signUpUser = (data) => dispatch => {
+    dispatch(SIGN_UP.START());
+    const {username, password} = data
+
+    return client.mutate({
+        mutation: gql`
+            mutation createUser {
+                createUser(username: "${username}", password: "${password}") {
+                    token
+                    error {
+                        message
+                    }
+                }
+            }
+        `
+    }).then(res => {
+        if(res.data && res.data.createUser){
+            if(res.data.createUser.token){
+                dispatch(LOG_IN.SUCCESS(res.data.createUser.token))
+                dispatch(SIGN_UP.SUCCESS("Success!"))
+            } else if (res.data.login.error) {
+                dispatch(SIGN_UP.FAIL(res.data.createUser.error.message))
+            } else {
+                dispatch(SIGN_UP.FAIL("Something went wrong 😖"))
+            }
+        } else {
+            dispatch(SIGN_UP.FAIL("Something went wrong 😖"))
+        }
+    })
+    // return logIn(username, password).then(res => dispatch(LOG_IN.SUCCESS(res)))
+}
+
 export const reducers = {
     login: createReducer(initialState, {
         ...asyncCases(LOG_IN)
+    }),
+    signUp: createReducer(initialState, {
+        ...asyncCases(SIGN_UP)
     })
 }

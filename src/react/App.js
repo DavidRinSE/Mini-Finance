@@ -1,7 +1,7 @@
 import React from "react"
 import {Switch, Route} from "react-router-dom"
 import { makeStyles } from "@material-ui/core/styles"
-import {Home, Income, Expense, Login} from "./pages"
+import {Home, Income, Expense, Login, Signup} from "./pages"
 import {userIsAuthenticated, userNotAuthenticated} from "./helpers/HOCs"
 
 const useStyles = makeStyles({
@@ -40,6 +40,7 @@ const App = (props) => {
                 <Switch>
                     <Route exact path="/" component={userIsAuthenticated(Home)} />
                     <Route exact path="/login" component={userNotAuthenticated(Login)} />
+                    <Route exact path="/signup" component={userNotAuthenticated(Signup)} />
                     <Route exact path="/expense" component={Expense} />
                     <Route exact path="/income" component={Income} />
                 </Switch>
