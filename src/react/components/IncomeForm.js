@@ -1,13 +1,15 @@
 import React from "react"
 import { makeStyles } from "@material-ui/core/styles"
 import {
-    FormControl, 
+    FormControl,
+    FormControlLabel,
     InputLabel,
     TextField, 
     OutlinedInput, 
     InputAdornment,
     Grid,
     Button,
+    Checkbox,
     CircularProgress
 } from "@material-ui/core"
 import { useDispatch, useSelector } from "react-redux";
@@ -60,7 +62,8 @@ const IncomeForm = (props) => {
     const [state, setState] = React.useState({
         name: "",
         amount:"",
-        date: date
+        date: date,
+        newPeriod: true
     })
     const [finished, setFinished] = React.useState(false)
     const postState = useSelector(state => state.transactions.postIncome)
@@ -80,7 +83,7 @@ const IncomeForm = (props) => {
         const name = event.target.name;
         setState({
             ...state,
-            [name]: event.target.value,
+            [name]: event.target.checked || event.target.value,
         });
     }
     return (
@@ -137,6 +140,20 @@ const IncomeForm = (props) => {
                         }}
                     />
                 </div>
+            </Grid>
+
+            <Grid item style={{width:"100%"}}>
+                <FormControlLabel
+                    control={
+                        <Checkbox
+                            checked={state.newPeriod}
+                            onChange={handleChange}
+                            name="newPeriod"
+                            color="primary"
+                        />
+                    }
+                    label="Add to new period"
+                />
             </Grid>
 
             <Grid item style={{width: "100%"}}>

@@ -8,9 +8,8 @@ import {
     Button,
     CircularProgress
 } from "@material-ui/core"
-import { NavLink } from "react-router-dom"
 import {useDispatch, useSelector} from "react-redux"
-import { getLoginToken } from "../../redux"
+import { signUpUser } from "../../redux"
 
 const useStyles = makeStyles((theme) => ({
     form: {
@@ -44,16 +43,16 @@ const useStyles = makeStyles((theme) => ({
     },
 }))
 
-const Login = () => {
+const Signup = () => {
     const classes = useStyles()
     const [state, setState] = React.useState({
         username: "",
-        password: ""
+        password: "",
+        password2: ""
     })
-    // const [finished, setFinished] = React.useState(false)
-    const loginState = useSelector(redux => redux.auth.login)
+    const signUpState = useSelector(redux => redux.auth.signUp)
     const dispatch = useDispatch()
-    const forwardLink = React.forwardRef((props, ref) => <div ref={ref}><NavLink {...props} /></div>)
+    
     const handleChange = (event) => {
         const name = event.target.name
         setState({
@@ -79,7 +78,7 @@ const Login = () => {
                 className={classes.form}
             >
                 <Grid item style={{width:"100%"}}>
-                    <h1 className={classes.title}>Log in to your account</h1>
+                    <h1 className={classes.title}>Sign up for an account</h1>
                 </Grid>
                 <Grid item style={{width:"100%"}}>
                     <FormControl fullWidth variant="outlined" className={classes.FormControl}>
@@ -103,6 +102,17 @@ const Login = () => {
                         />
                     </FormControl>
                 </Grid>
+                <Grid item style={{width:"100%"}}>
+                    <FormControl fullWidth variant="outlined" className={classes.FormControl}>
+                        <InputLabel>Password 2</InputLabel>
+                        <OutlinedInput
+                            value={state.password}
+                            onChange={handleChange}
+                            name="password2"
+                            labelWidth={60}
+                        />
+                    </FormControl>
+                </Grid>
                 <Grid item style={{width: "100%"}}>
                     <Grid
                         container
@@ -110,39 +120,29 @@ const Login = () => {
                         justify="center"
                     >
                         <Button
-                            color="primary"
-                            variant="contained"
-                            size="small"
-                            disabled={loginState.loading}
-                            onClick={() => {
-                                dispatch(getLoginToken(state))
-                                // setFinished(true)
-                            }}
-                            style={{marginRight:5}} 
-                        >
-                            Login
-                        </Button>
-                        <Button
                             color="secondary"
                             variant="contained"
-                            component={forwardLink} 
-                            to="/signup"
                             size="small"
-                            style={{marginLeft:5}}  
-                        >Sign Up</Button>
+                            disabled={signUpState.loading}
+                            onClick={() => {
+                                dispatch(signUpUser({username: state.username, password: state.password}))
+                            }} 
+                        >
+                            Sign up
+                        </Button>
                     </Grid>
                 </Grid>
-                {loginState.loading && 
+                {signUpState.loading && 
                     <div className={classes.loading}>
                         <CircularProgress size={20}/>
                     </div>
                 }
-                {loginState.error &&
-                    <p>{ loginState.error }</p>
+                {signUpState.error &&
+                    <p>{ signUpState.error }</p>
                 }
             </Grid>
         </Grid>
     )
 }
 
-export default Login
+export default Signup

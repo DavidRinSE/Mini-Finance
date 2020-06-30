@@ -13,12 +13,11 @@ import {gql} from "apollo-boost"
 import {createHistory as createHistoryAction} from "./history"
 
 const POST_INCOME = createActions("POST_INCOME")
-export const postIncome = (incomeData, createHistory) => async (dispatch, getStore) => {
-    createHistory = true
+export const postIncome = (incomeData) => async (dispatch, getStore) => {
     dispatch(POST_INCOME.START());
-    const {name, amount, date, category} = incomeData
+    const {name, amount, date, category, newPeriod} = incomeData
 
-    if(createHistory) {
+    if(newPeriod) {
         await dispatch(createHistoryAction(date))
         if(!getStore().history.createHistory.result) {
             return dispatch(POST_INCOME.FAIL("Something went wrong, please try again."))
