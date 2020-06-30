@@ -41,8 +41,8 @@ const App = (props) => {
                     <Route exact path="/" component={userIsAuthenticated(Home)} />
                     <Route exact path="/login" component={userNotAuthenticated(Login)} />
                     <Route exact path="/signup" component={userNotAuthenticated(Signup)} />
-                    <Route exact path="/expense" component={Expense} />
-                    <Route exact path="/income" component={Income} />
+                    <Route exact path="/expense" component={userIsAuthenticated(Expense)} />
+                    <Route exact path="/income" component={userIsAuthenticated(Income)} />
                 </Switch>
             </div>
         </div>
