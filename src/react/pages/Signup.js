@@ -32,7 +32,7 @@ const useStyles = makeStyles((theme) => ({
             '"Apple Color Emoji"',
             '"Segoe UI Emoji"',
             '"Segoe UI Symbol"',
-          ].join(','),
+        ].join(','),
         
     },
     title: {
@@ -50,6 +50,8 @@ const Signup = () => {
         password: "",
         password2: ""
     })
+    const [warning, setWarning] = React.useState(null)
+
     const signUpState = useSelector(redux => redux.auth.signUp)
     const dispatch = useDispatch()
     
@@ -99,6 +101,7 @@ const Signup = () => {
                             onChange={handleChange}
                             name="password"
                             labelWidth={60}
+                            type="password"
                         />
                     </FormControl>
                 </Grid>
@@ -106,10 +109,11 @@ const Signup = () => {
                     <FormControl fullWidth variant="outlined" className={classes.FormControl}>
                         <InputLabel>Password 2</InputLabel>
                         <OutlinedInput
-                            value={state.password}
+                            value={state.password2}
                             onChange={handleChange}
                             name="password2"
                             labelWidth={60}
+                            type="password"
                         />
                     </FormControl>
                 </Grid>
@@ -125,7 +129,11 @@ const Signup = () => {
                             size="small"
                             disabled={signUpState.loading}
                             onClick={() => {
-                                dispatch(signUpUser({username: state.username, password: state.password}))
+                                if (state.password === state.password2){
+                                    dispatch(signUpUser({username: state.username, password: state.password}))
+                                } else {
+                                    setWarning("Passwords do not match")
+                                }
                             }} 
                         >
                             Sign up
@@ -136,6 +144,9 @@ const Signup = () => {
                     <div className={classes.loading}>
                         <CircularProgress size={20}/>
                     </div>
+                }
+                {warning &&
+                    <p>{warning}</p>
                 }
                 {signUpState.error &&
                     <p>{ signUpState.error }</p>

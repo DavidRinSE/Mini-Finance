@@ -1,7 +1,7 @@
 import React, { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux";
 import { getBalance } from "../../redux"
-import {Transactions, Balance, History} from "./data"
+import {Transactions, Balance, History} from "./data/index.js"
 import {Grid} from "@material-ui/core"
 
 const Data = (props) => {

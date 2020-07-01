@@ -33,7 +33,7 @@ const useStyles = makeStyles((theme) => ({
             '"Apple Color Emoji"',
             '"Segoe UI Emoji"',
             '"Segoe UI Symbol"',
-          ].join(','),
+        ].join(','),
         
     },
     title: {
@@ -100,6 +100,7 @@ const Login = () => {
                             onChange={handleChange}
                             name="password"
                             labelWidth={60}
+                            type="password"
                         />
                     </FormControl>
                 </Grid>
