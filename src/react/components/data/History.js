@@ -1,30 +1,10 @@
 import React, {useEffect} from "react"
-import { makeStyles } from "@material-ui/core/styles"
 import { useDispatch, useSelector } from "react-redux"
 import { getHistory } from "../../../redux"
 import {IncomeAndExpense, ExpensesByCategory} from "./historyCharts"
-
-const useStyles = makeStyles({
-    wrapper: {
-        width: "85%",
-        padding:15,
-        backgroundColor: "lightgrey",
-        borderWidth:1,
-        borderRadius: 5,
-        boxShadow: "2px 2px 4px rgba(0, 0, 0, .5)",
-        marginBottom: 10
-    },
-    title: {
-        fontSize:18,
-        fontFamily:'FredokaOne',
-        textAlign: "left",
-        paddingBottom:15,
-        width: "100%"
-    }
-})
+import {ContentCard} from "../index"
 
 const History = (props) => {
-    const classes = useStyles()
     const dispatch = useDispatch()
     let history = useSelector(state => state.history.getHistory)
 
@@ -32,18 +12,26 @@ const History = (props) => {
         if(!history.result && !history.loading){
             dispatch(getHistory())
         }
-    }) 
+    })
+
+    let charts = []
+
+    if(history.result && history.result.length >= 2){
+        charts.push(<IncomeAndExpense history={history.result} />)
+    }
+    if(history.result && history.result.length >= 1){
+        charts.push(<ExpensesByCategory history={history.result} />)
+    }
 
     return (
-        <div className={classes.wrapper}>
-            <h1 className={classes.title}>Historic charts</h1>
-            {history.result &&
-                <div>
-                    <IncomeAndExpense history={history.result} />
-                    <ExpensesByCategory history={history.result} />
-                </div>
+        <ContentCard title="Historic Charts">
+            {(history.result && charts.length > 0) &&
+               charts 
             }
-        </div>
+            {(history.result && charts.length === 0) &&
+                <p>Not enough information for historic charts. Keep tracking those transactions!</p>
+            }
+        </ContentCard>
     )
 }
 

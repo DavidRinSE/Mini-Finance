@@ -1,7 +1,7 @@
 import React, { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux";
 import { getBalance } from "../../redux"
-import {Transactions, Balance, History} from "./data/index.js"
+import {Transactions, Balance, History, Current} from "./data/index.js"
 import {Grid} from "@material-ui/core"
 
 const Data = (props) => {
@@ -21,10 +21,11 @@ const Data = (props) => {
             justify="center"
             alignItems="center"
         >
-            {balance.result &&
+            {(balance.result && balance.result.transactions) &&
                 <>
                     <Balance data={balance.result} />
                     <History />
+                    <Current data={balance.result.transactions}/>
                     <Transactions data={balance.result.transactions} />
                 </>
             }
