@@ -8,7 +8,7 @@ const Current = (props) => {
     let charts = []
     let expenses = transactions.filter(trans => trans.isExpense)
     if(expenses.length > 2){
-        charts.push(<ExpensesByCategory expenses={expenses}/>)
+        charts.push(<ExpensesByCategory expenses={expenses} key="ExpensesByCategory"/>)
     }
 
     return (

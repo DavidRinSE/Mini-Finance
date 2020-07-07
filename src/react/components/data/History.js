@@ -17,10 +17,10 @@ const History = (props) => {
     let charts = []
 
     if(history.result && history.result.length >= 2){
-        charts.push(<IncomeAndExpense history={history.result} />)
+        charts.push(<IncomeAndExpense history={history.result} key="IncomeAndExpense"/>)
     }
     if(history.result && history.result.length >= 1){
-        charts.push(<ExpensesByCategory history={history.result} />)
+        charts.push(<ExpensesByCategory history={history.result} key="ExpensesByCategory"/>)
     }
 
     return (

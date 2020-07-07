@@ -1,7 +1,8 @@
 import React from "react"
 import { makeStyles } from "@material-ui/core/styles"
-import { Grid } from "@material-ui/core"
+import { Grid, withWidth } from "@material-ui/core"
 import {ContentCard} from "../index"
+import {HomeTopbar} from "../index"
 
 const useStyles = makeStyles(() => ({
     med: {
@@ -41,7 +42,8 @@ const Balance = (props) => {
                 <h2 className={classes.small}>Expenses</h2>
                 <h2 className={classes.small}>${expense}</h2>
             </Grid>
+            {(props.width === "lg" || props.width === "xl") && <HomeTopbar/>}
         </ContentCard>
     )
 }
-export default Balance
+export default withWidth()(Balance)

@@ -4,6 +4,7 @@ import { makeStyles } from "@material-ui/core/styles"
 const useStyles = makeStyles(() => ({
     wrapper: {
         width: "85%",
+        maxWidth:738,
         padding:15,
         backgroundColor: "lightgrey",
         borderWidth:1,

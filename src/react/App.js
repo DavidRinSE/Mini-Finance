@@ -6,7 +6,6 @@ import {userIsAuthenticated, userNotAuthenticated} from "./helpers/HOCs"
 
 const useStyles = makeStyles({
     app:{
-        width: "100vw",
         height: "100vh",
         display: "grid",
         gridTemplate: `75px ${window.innerHeight-75}px / auto`
