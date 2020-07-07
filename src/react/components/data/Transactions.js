@@ -1,35 +1,16 @@
 import React from "react"
 import Transaction from "./Transaction"
-import { makeStyles } from "@material-ui/core/styles"
 import {Grid} from "@material-ui/core"
-
-const useStyles = makeStyles(() => ({
-    wrapper: {
-        width: "85%",
-        padding:15,
-        backgroundColor: "lightgrey",
-        borderWidth:1,
-        borderRadius: 5,
-        boxShadow: "2px 2px 4px rgba(0, 0, 0, .5)"
-    },
-    title: {
-        fontSize:18,
-        fontFamily:'FredokaOne',
-        textAlign: "left",
-        paddingBottom:15,
-        width: "100%"
-    }
-}))
+import {ContentCard} from "../index"
 
 const Transactions = (props) => {
-    const classes = useStyles()
-    let transactions = []
-    if(props.data){
-        transactions = props.data.map(trans => <Grid item style={{width: "100%"}} key={trans.id}><Transaction data={trans}/></Grid>)
-    }
+    const transactions = props.data.map(trans => 
+        <Grid item style={{width: "100%"}} key={trans.id}>
+            <Transaction data={trans}/>
+        </Grid>
+    )
     return (
-        <div className={classes.wrapper}>
-            <h1 className={classes.title}>Recent Activity</h1>
+        <ContentCard title="Recent Activity">
             <Grid
                 container
                 spacing={3}
@@ -38,8 +19,13 @@ const Transactions = (props) => {
                 alignItems="center"
             >
                 {transactions}
+                {transactions.length === 0 &&
+                    <Grid item style={{width:"100%"}}>
+                        <p>No transactions found, start tracking your finances to see data.</p>
+                    </Grid>
+                }
             </Grid>
-        </div>
+        </ContentCard>
     )
 }
 
