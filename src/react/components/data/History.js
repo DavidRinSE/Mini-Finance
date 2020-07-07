@@ -2,7 +2,7 @@ import React, {useEffect} from "react"
 import { makeStyles } from "@material-ui/core/styles"
 import { useDispatch, useSelector } from "react-redux"
 import { getHistory } from "../../../redux"
-import {IncomeAndExpense} from "./historyCharts"
+import {IncomeAndExpense, ExpensesByCategory} from "./historyCharts"
 
 const useStyles = makeStyles({
     wrapper: {
@@ -38,7 +38,10 @@ const History = (props) => {
         <div className={classes.wrapper}>
             <h1 className={classes.title}>Historic charts</h1>
             {history.result &&
-                <IncomeAndExpense history={history.result} />
+                <div>
+                    <IncomeAndExpense history={history.result} />
+                    <ExpensesByCategory history={history.result} />
+                </div>
             }
         </div>
     )

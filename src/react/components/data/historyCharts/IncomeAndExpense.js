@@ -11,7 +11,7 @@ const IncomeAndExpense = (props) => {
         return (startDate[1] === endDate[1]) ? `${months[parseInt(startDate[1]) - 1]} ${startDate[2]}-${endDate[2]}` : `${months[parseInt(startDate[1]) - 1]} ${startDate[2]} - ${months[parseInt(endDate[1]) - 1]} ${endDate[2]}`
     }
 
-    let data = () => history.map(historyObj => (
+    let data = () => history.slice(0, 5).map(historyObj => (
         {
             name: name(historyObj.startDate, historyObj.endDate),
             balance: parseFloat(historyObj.balance / 100).toFixed(2),
@@ -30,7 +30,7 @@ const IncomeAndExpense = (props) => {
                     <CartesianGrid strokeDasharray="3 3" />
                     <Tooltip separator=": $"/>
                     <Legend verticalAlign="top" height={36}/>
-                    <Line type="monotone" dataKey="income" stroke="#8884d8" dot={{r:3}} />
+                    <Line type="monotone" dataKey="income" stroke="#8884d8" dot={{r:3}}/>
                     <Line type="monotone" dataKey="expense" stroke="#82ca9d" dot={{r:3}}/>
                 </LineChart>
             </ResponsiveContainer>
