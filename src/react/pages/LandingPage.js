@@ -24,8 +24,14 @@ const useStyles = makeStyles({
             },
             subtitle: {
                 color: "white",
-                fontSize:15,
+                fontSize:18,
                 fontFamily:'FredokaOne'
+            },
+            link: {
+                color: "white",
+                textDecoration: "underline",
+                fontFamily:'FredokaOne',
+                marginTop:3
             },
         picture: {
             height: '55vh',
@@ -39,9 +45,12 @@ const LandingPage = (props) => {
             <div className={classes.titleWrap}>
                 <h1 className={classes.title}>Mini-Finance</h1>
                 <h3 className={classes.subtitle}>Track your spending patterns and save!</h3>
-                <NavLink to='/login'>Continue to the app</NavLink>
+                <NavLink className={classes.link} to='/login'>Continue to the app</NavLink>
             </div>
-            <img className={classes.picture} src={require('../../pictures/App-Picture.png')}/>
+            <img className={classes.picture} src={require('../../pictures/App-Picture.png')} alt="Screenshot of the application"/>
+            <div className={classes.headerContent}>
+                
+            </div>
         </div>
     )
 }
