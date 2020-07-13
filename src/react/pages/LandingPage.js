@@ -7,11 +7,9 @@ const useStyles = makeStyles({
         background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
         display: "flex",
         flexDirection: "column",
-        justifyContent: "space-between",
+        justifyContent: "space-around",
         alignItems: "center",
-        height: "94vh",
-        paddingTop:"3vh",
-        paddingBottom:"3vh"
+        height: "100vh",
     },
         titleWrap: {
             display: "flex",
@@ -35,25 +33,32 @@ const useStyles = makeStyles({
                 fontFamily:'FredokaOne',
                 marginTop:5
             },
-        picture: {
-            height: '55vh',
-        },
         headerContent: {
-            backgroundColor: "white",
-            width: "85vw",
-            height: "100px",
-            boxShadow: "3px 3px 4px rgba(0, 0, 0, .5)",
-            borderRadius: 3,
-            display: "flex",
+            display:"flex",
             flexDirection: "column",
-            justifyContent: "space-around",
-            alignItems: "center"
+            justifyContent:"center",
+            alignItems:"center"
         },
-            headerContentTitle: {
-                fontFamily:'FredokaOne',
+            picture: {
+                height: '55vh',
+                marginBottom:5
             },
-            unorderedList: {
-                listStyleType: "circle",
+            headerContentCard: {
+                backgroundColor: "white",
+                width: "85vw",
+                height: "100px",
+                boxShadow: "3px 3px 4px rgba(0, 0, 0, .5)",
+                borderRadius: 3,
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "space-around",
+                alignItems: "center"
+            },
+                headerContentTitle: {
+                    fontFamily:'FredokaOne',
+                },
+                unorderedList: {
+                    listStyleType: "circle",
             }
 })
 
@@ -66,14 +71,16 @@ const LandingPage = (props) => {
                 <h3 className={classes.subtitle}>Track your spending patterns and save!</h3>
                 <NavLink className={classes.link} to='/login'>Continue to the app</NavLink>
             </div>
-            <img className={classes.picture} src={require('../../pictures/App-Picture.png')} alt="Screenshot of the application"/>
             <div className={classes.headerContent}>
-                <h3 className={classes.headerContentTitle}>A portfolio project built with:</h3>
-                <ul className={classes.unorderedList}>
-                    <li>Mobile first design</li>
-                    <li>Latest frameworks and tools</li>
-                    <li>GraphQL API backend</li>
-                </ul>
+                <img className={classes.picture} src={require('../../pictures/App-Picture.png')} alt="Screenshot of the application"/>
+                <div className={classes.headerContentCard}>
+                    <h3 className={classes.headerContentTitle}>A portfolio project built with:</h3>
+                    <ul className={classes.unorderedList}>
+                        <li>Mobile first design</li>
+                        <li>Latest frameworks and tools</li>
+                        <li>GraphQL API backend</li>
+                    </ul>
+                </div>
             </div>
         </div>
     )
