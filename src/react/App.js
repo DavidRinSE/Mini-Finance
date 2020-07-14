@@ -1,8 +1,9 @@
 import React from "react"
 import {Switch, Route} from "react-router-dom"
 import { makeStyles } from "@material-ui/core/styles"
-import {Home, Income, Expense, Login, Signup} from "./pages"
+import {Home, Income, Expense, Login, Signup, LandingPage} from "./pages"
 import {userIsAuthenticated, userNotAuthenticated} from "./helpers/HOCs"
+import {useSelector} from "react-redux"
 
 const useStyles = makeStyles({
     app:{
@@ -30,6 +31,12 @@ const useStyles = makeStyles({
 
 const App = (props) => {
     const classes = useStyles()
+    let pathname = useSelector(state => state.router.location.pathname)
+    if(pathname === "/"){
+        return (
+            <LandingPage />
+        )
+    }
     return(
         <div className={classes.app}>
             <div className={classes.header}>
@@ -37,7 +44,7 @@ const App = (props) => {
             </div>
             <div className={classes.content}>
                 <Switch>
-                    <Route exact path="/" component={userIsAuthenticated(Home)} />
+                    <Route exact path="/home" component={userIsAuthenticated(Home)} />
                     <Route exact path="/login" component={userNotAuthenticated(Login)} />
                     <Route exact path="/signup" component={userNotAuthenticated(Signup)} />
                     <Route exact path="/expense" component={userIsAuthenticated(Expense)} />

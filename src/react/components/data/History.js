@@ -26,7 +26,7 @@ const History = (props) => {
     return (
         <ContentCard title="Historic Charts">
             {(history.result && charts.length > 0) &&
-               charts 
+                charts 
             }
             {(history.result && charts.length === 0) &&
                 <p>Not enough information for historic charts. Keep tracking those transactions!</p>

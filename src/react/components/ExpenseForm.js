@@ -189,7 +189,7 @@ const ExpenseForm = (props) => {
         </Grid>
         {
          (finished && !postState.loading) &&
-            <Redirect to="/" />
+            <Redirect to="/home" />
         }
         </>
     )

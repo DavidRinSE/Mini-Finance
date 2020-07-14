@@ -63,10 +63,11 @@ const IncomeForm = (props) => {
         name: "",
         amount:"",
         date: date,
-        newPeriod: true
+        newPeriod: false
     })
     const [finished, setFinished] = React.useState(false)
     const postState = useSelector(state => state.transactions.postIncome)
+    const currentData = useSelector(state => state.balance.getBalance.result)
     const dispatch = useDispatch()
 
     // const handleAmountChange = (event) => {
@@ -141,20 +142,21 @@ const IncomeForm = (props) => {
                     />
                 </div>
             </Grid>
-
-            <Grid item style={{width:"100%"}}>
-                <FormControlLabel
-                    control={
-                        <Checkbox
-                            checked={state.newPeriod}
-                            onChange={handleChange}
-                            name="newPeriod"
-                            color="primary"
-                        />
-                    }
-                    label="Add to new period"
-                />
-            </Grid>
+            {(currentData.transactions && currentData.transactions.length > 0) &&
+                <Grid item style={{width:"100%"}}>
+                    <FormControlLabel
+                        control={
+                            <Checkbox
+                                checked={state.newPeriod}
+                                onChange={handleChange}
+                                name="newPeriod"
+                                color="primary"
+                            />
+                        }
+                        label="Add to new period"
+                    />
+                </Grid>
+            }
 
             <Grid item style={{width: "100%"}}>
                 <Grid
@@ -182,7 +184,7 @@ const IncomeForm = (props) => {
         </Grid>
         {
          (finished && !postState.loading) &&
-            <Redirect to="/" />
+            <Redirect to="/home" />
         }
         </>
     )
