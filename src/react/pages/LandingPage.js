@@ -2,7 +2,7 @@ import React from "react"
 import { makeStyles } from "@material-ui/core/styles"
 import { NavLink } from "react-router-dom"
 
-const useStyles = makeStyles({
+const useStyles = makeStyles(theme => ({
     header: {
         background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
         display: "flex",
@@ -35,17 +35,33 @@ const useStyles = makeStyles({
             },
         headerContent: {
             display:"flex",
-            flexDirection: "column",
+            [theme.breakpoints.down('sm')]: {
+                flexDirection: "column",
+            },
             justifyContent:"center",
             alignItems:"center"
         },
             picture: {
-                height: '55vh',
+                [theme.breakpoints.down('sm')]:{
+                    height: '55vh',
+                },
+                [theme.breakpoints.up('md')]: {
+                    height: '75vh',
+                    minHeight: 545,
+                    maxheight: 750
+                },
                 marginBottom:5
             },
             headerContentCard: {
                 backgroundColor: "white",
-                width: "85vw",
+                [theme.breakpoints.down('sm')]:{
+                    width: "85vw",
+                },
+                [theme.breakpoints.up('md')]: {
+                    width:"25vw",
+                    minWidth: 295,
+                    maxWidth: 400
+                },
                 height: "100px",
                 boxShadow: "3px 3px 4px rgba(0, 0, 0, .5)",
                 borderRadius: 3,
@@ -60,7 +76,7 @@ const useStyles = makeStyles({
                 unorderedList: {
                     listStyleType: "circle",
             }
-})
+}))
 
 const LandingPage = (props) => {
     const classes = useStyles()
