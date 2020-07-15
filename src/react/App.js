@@ -1,7 +1,7 @@
 import React from "react"
 import {Switch, Route} from "react-router-dom"
 import { makeStyles } from "@material-ui/core/styles"
-import {Home, Income, Expense, Login, Signup, LandingPage} from "./pages"
+import {Home, Income, Expense, Login, Signup, LandingPage, Error} from "./pages"
 import {userIsAuthenticated, userNotAuthenticated} from "./helpers/HOCs"
 import {useSelector} from "react-redux"
 
@@ -49,6 +49,7 @@ const App = (props) => {
                     <Route exact path="/signup" component={userNotAuthenticated(Signup)} />
                     <Route exact path="/expense" component={userIsAuthenticated(Expense)} />
                     <Route exact path="/income" component={userIsAuthenticated(Income)} />
+                    <Route exact path="*" component={Error}/>
                 </Switch>
             </div>
         </div>
