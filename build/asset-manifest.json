@@ -1,0 +1,24 @@
+{
+  "files": {
+    "main.css": "/static/css/main.43020972.chunk.css",
+    "main.js": "/static/js/main.1d39a669.chunk.js",
+    "main.js.map": "/static/js/main.1d39a669.chunk.js.map",
+    "runtime-main.js": "/static/js/runtime-main.e19d0c2d.js",
+    "runtime-main.js.map": "/static/js/runtime-main.e19d0c2d.js.map",
+    "static/js/2.33026a11.chunk.js": "/static/js/2.33026a11.chunk.js",
+    "static/js/2.33026a11.chunk.js.map": "/static/js/2.33026a11.chunk.js.map",
+    "index.html": "/index.html",
+    "precache-manifest.31d598c86a0e30e173c834b973661480.js": "/precache-manifest.31d598c86a0e30e173c834b973661480.js",
+    "service-worker.js": "/service-worker.js",
+    "static/css/main.43020972.chunk.css.map": "/static/css/main.43020972.chunk.css.map",
+    "static/js/2.33026a11.chunk.js.LICENSE.txt": "/static/js/2.33026a11.chunk.js.LICENSE.txt",
+    "static/media/App-Picture.png": "/static/media/App-Picture.9e4e3078.png",
+    "static/media/index.css": "/static/media/FredokaOne-Regular.4a2f2ea4.ttf"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.e19d0c2d.js",
+    "static/js/2.33026a11.chunk.js",
+    "static/css/main.43020972.chunk.css",
+    "static/js/main.1d39a669.chunk.js"
+  ]
+}
