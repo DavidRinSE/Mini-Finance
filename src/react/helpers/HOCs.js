@@ -11,7 +11,7 @@ export const userIsAuthenticated = connectedRouterRedirect({
 })
 
 export const userNotAuthenticated = connectedRouterRedirect({
-    redirectPath: "/",
+    redirectPath: "/home",
     authenticatedSelector: state =>
         (state.auth && state.auth.login && state.auth.login.result === null) || (state.auth.login.error),
     allowRedirectBack: false,
