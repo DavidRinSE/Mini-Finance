@@ -61,9 +61,11 @@ export const createHistory = (endDate) => dispatch => {
             }
         `
     }).then(res => {
-        if (res.data && res.data.createHistory){
+        if (res.data && res.data.createHistory && res.data.createHistory.history){
             dispatch(GET_HISTORY.SUCCESS(res.data.createHistory.history))
             return dispatch(CREATE_HISTORY.SUCCESS("Success"))
+        } else if (res.data && res.data.createHistory && res.data.createHistory.error){
+            return dispatch(CREATE_HISTORY.FAIL(res.data.createHistory.error))
         } else {
             return dispatch(CREATE_HISTORY.FAIL((res.errors) ? res.errors : "Something went wrong, please try again."))
         }

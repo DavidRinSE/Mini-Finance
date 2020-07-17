@@ -63,7 +63,7 @@ export const signUpUser = (data) => dispatch => {
             if(res.data.createUser.token){
                 dispatch(LOG_IN.SUCCESS(res.data.createUser.token))
                 dispatch(SIGN_UP.SUCCESS("Success!"))
-            } else if (res.data.login.error) {
+            } else if (res.data.createUser.error) {
                 dispatch(SIGN_UP.FAIL(res.data.createUser.error.message))
             } else {
                 dispatch(SIGN_UP.FAIL("Something went wrong 😖"))

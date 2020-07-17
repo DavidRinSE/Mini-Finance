@@ -21,6 +21,7 @@ export const getBalance = () => dispatch => {
                     balance
                     expense
                     income
+                    showDefault
                     transactions {
                         id
                         name

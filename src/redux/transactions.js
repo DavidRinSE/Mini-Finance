@@ -75,8 +75,9 @@ export const postExpense = (expenseData) => dispatch => {
         `
     }).then(res => {
         if (res.data && res.data.createTransaction){
-            dispatch(GET_BALANCE.SUCCESS(res.data.createTransaction))
-            return dispatch(POST_EXPENSE.SUCCESS())
+            // dispatch(GET_BALANCE.SUCCESS(res.data.createTransaction))
+            // return dispatch(POST_EXPENSE.SUCCESS())
+            console.log(res.data.createTransaction)
         } else {
             return dispatch(POST_EXPENSE.FAIL((res.data.errors) ? res.data.errors : "Something went wrong, please try again."))
         }
