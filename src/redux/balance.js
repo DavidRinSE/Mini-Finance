@@ -39,6 +39,10 @@ export const getBalance = () => dispatch => {
         } else {
             dispatch(GET_BALANCE.FAIL("Something went wrong, please log out and try again."))
         }
+    }).catch(e => {
+        if(e.graphQLErrors) {
+            dispatch(GET_BALANCE.FAIL(e.graphQLErrors[0].message))
+        }
     })
 }
 

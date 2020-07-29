@@ -10,6 +10,12 @@ const useStyles = makeStyles(() => ({
     },
     small: {
         fontSize:14,
+    },
+    warning: {
+        width: '100%',
+        height: '15px',
+        margin: '-15px 0 15px 0',
+        backgroundColor: 'yellow'
     }
 }))
 
@@ -20,7 +26,7 @@ const Balance = (props) => {
     income = (income === 0) ? 0 : parseFloat(props.data.income / 100).toFixed(2)
     expense  = (expense === 0) ? 0 : parseFloat(props.data.expense / 100).toFixed(2)
     return (
-        <ContentCard title="Account Details">
+        <ContentCard title="Account Details" warning="Default data shown">
             <Grid
                 container
                 justify="space-between"
