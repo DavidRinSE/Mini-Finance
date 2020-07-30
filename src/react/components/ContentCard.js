@@ -6,7 +6,7 @@ const useStyles = makeStyles(() => ({
         width: "85%",
         maxWidth:738,
         backgroundColor: "lightgrey",
-        borderWidth:1,
+        borderWidth:0,
         borderRadius: 5,
         boxShadow: "2px 2px 4px rgba(0, 0, 0, .5)",
         marginBottom: 10
@@ -26,7 +26,10 @@ const useStyles = makeStyles(() => ({
         height: '25px',
         background: 'lemonchiffon',
         borderWidth: 1,
-        borderRadius: '5px 5px 0px 0xp'
+        borderRadius: '5px 5px 0px 0xp',
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
     }
 }))
 

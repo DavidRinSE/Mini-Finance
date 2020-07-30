@@ -21,12 +21,13 @@ const useStyles = makeStyles(() => ({
 
 const Balance = (props) => {
     const classes = useStyles()
-    let {balance, income, expense} = props.data
+    let {balance, income, expense, showDefault} = props.data
     balance = (balance === 0) ? 0 : parseFloat(props.data.balance / 100).toFixed(2)
     income = (income === 0) ? 0 : parseFloat(props.data.income / 100).toFixed(2)
     expense  = (expense === 0) ? 0 : parseFloat(props.data.expense / 100).toFixed(2)
+    const warning = (showDefault) ? "Default data is shown, clear it by adding income." : false
     return (
-        <ContentCard title="Account Details" warning="Default data shown">
+        <ContentCard title="Account Details" warning={warning}>
             <Grid
                 container
                 justify="space-between"

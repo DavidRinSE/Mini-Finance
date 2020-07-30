@@ -56,6 +56,7 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 const IncomeForm = (props) => {
+
     const classes = useStyles()
     const today = new Date();
     const date = today.getFullYear()+'-'+("0" + (today.getMonth()+1)).slice(-2)+'-'+("0" + today.getDate()).slice(-2);
@@ -70,16 +71,6 @@ const IncomeForm = (props) => {
     const currentData = useSelector(state => state.balance.getBalance.result)
     const dispatch = useDispatch()
 
-    // const handleAmountChange = (event) => {
-    //     const NON_DIGIT = /[0-9]*.?([0-9])+/g;
-    //     if(NON_DIGIT.test(event.target.value)){
-    //         setState({
-    //             ...state,
-    //             amount: event.target.value.match(NON_DIGIT),
-    //         });
-    //     }
-    // }
-
     const handleChange = (event) => {
         const name = event.target.name;
         setState({
@@ -87,6 +78,30 @@ const IncomeForm = (props) => {
             [name]: event.target.checked || event.target.value,
         });
     }
+
+    let checkComponent = <></>
+    if(currentData.transactions && currentData.transactions.length > 0 && !currentData.showDefault) {
+        if (!state.newPeriod){
+            setState({
+                ...state,
+                newPeriod: true
+            })
+        }
+        checkComponent = <Grid item style={{width:"100%"}}>
+                            <FormControlLabel
+                                control={
+                                    <Checkbox
+                                        checked={state.newPeriod}
+                                        onChange={handleChange}
+                                        name="newPeriod"
+                                        color="primary"
+                                    />
+                                }
+                                label="Add to new period"
+                            />
+                        </Grid>
+    }
+
     return (
         <>
         <Grid
@@ -142,22 +157,7 @@ const IncomeForm = (props) => {
                     />
                 </div>
             </Grid>
-            {(currentData.transactions && currentData.transactions.length > 0) &&
-                <Grid item style={{width:"100%"}}>
-                    <FormControlLabel
-                        control={
-                            <Checkbox
-                                checked={state.newPeriod}
-                                onChange={handleChange}
-                                name="newPeriod"
-                                color="primary"
-                            />
-                        }
-                        label="Add to new period"
-                    />
-                </Grid>
-            }
-
+            {checkComponent}
             <Grid item style={{width: "100%"}}>
                 <Grid
                     container
