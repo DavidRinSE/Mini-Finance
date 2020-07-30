@@ -4,7 +4,7 @@ Find the app online here: https://mini-finance.davidr.in
 
 Be sure to check out the GraphQL Database for this project! If you are running the database locally, remember to switch the uri for this front end application to test with your local database. Swap the comment on these two lines:
 
-### src/redux/index
+### src/redux/index.js
 ```
 33: // uri: 'http://localhost:4000/graphql/', USE THIS WITH THE LOCAL SERVER
 34: uri: 'https://mini-finance-api.herokuapp.com/graphql',
