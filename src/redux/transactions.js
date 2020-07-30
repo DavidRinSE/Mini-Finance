@@ -10,7 +10,7 @@ import {
 import {GET_BALANCE} from "./balance"
 import {client} from "./index"
 import {gql} from "apollo-boost"
-import {createHistory as createHistoryAction} from "./history"
+import {createHistory as createHistoryAction, getHistory as getHistoryAction} from "./history"
 
 const POST_INCOME = createActions("POST_INCOME")
 export const postIncome = (incomeData) => async (dispatch, getStore) => {
@@ -42,12 +42,17 @@ export const postIncome = (incomeData) => async (dispatch, getStore) => {
                 }
             }
         `
-    }).then(res => {
+    }).then(async res => {
         if (res.data && res.data.createTransaction){
             dispatch(GET_BALANCE.SUCCESS(res.data.createTransaction))
+            await dispatch(getHistoryAction())
             return dispatch(POST_INCOME.SUCCESS())
         } else {
-            return dispatch(POST_INCOME.FAIL((res.data.errors) ? res.data.errors : "Something went wrong, please try again."))
+            return dispatch(POST_INCOME.FAIL("Something went wrong, please try again."))
+        }
+    }).catch(e => {
+        if(e.graphQLErrors) {
+            dispatch(POST_INCOME.FAIL(e.graphQLErrors[0].message))
         }
     })
 }
@@ -78,7 +83,11 @@ export const postExpense = (expenseData) => dispatch => {
             dispatch(GET_BALANCE.SUCCESS(res.data.createTransaction))
             return dispatch(POST_EXPENSE.SUCCESS())
         } else {
-            return dispatch(POST_EXPENSE.FAIL((res.data.errors) ? res.data.errors : "Something went wrong, please try again."))
+            return dispatch(POST_EXPENSE.FAIL("Something went wrong, please try again."))
+        }
+    }).catch(e => {
+        if(e.graphQLErrors) {
+            dispatch(POST_EXPENSE.FAIL(e.graphQLErrors[0].message))
         }
     })
 }

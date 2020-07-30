@@ -29,12 +29,17 @@ export const getHistory = () => dispatch => {
                     }
                 }
             }
-        `
+        `,
+        fetchPolicy: 'no-cache'
     }).then(res => {
         if (res.data && res.data.history){
             dispatch(GET_HISTORY.SUCCESS(res.data.history))
         } else {
             dispatch(GET_HISTORY.FAIL("Something went wrong, please log out and try again."))
+        }
+    }).catch(e => {
+        if(e.graphQLErrors) {
+            dispatch(GET_HISTORY.FAIL(e.graphQLErrors[0].message))
         }
     })
 }
@@ -61,11 +66,15 @@ export const createHistory = (endDate) => dispatch => {
             }
         `
     }).then(res => {
-        if (res.data && res.data.createHistory){
+        if (res.data && res.data.createHistory && res.data.createHistory.history){
             dispatch(GET_HISTORY.SUCCESS(res.data.createHistory.history))
             return dispatch(CREATE_HISTORY.SUCCESS("Success"))
         } else {
-            return dispatch(CREATE_HISTORY.FAIL((res.errors) ? res.errors : "Something went wrong, please try again."))
+            return dispatch(CREATE_HISTORY.FAIL("Something went wrong, please try again."))
+        }
+    }).catch(e => {
+        if(e.graphQLErrors) {
+            dispatch(CREATE_HISTORY.FAIL(e.graphQLErrors[0].message))
         }
     })
 }

@@ -13,7 +13,7 @@ import {
 } from "@material-ui/core"
 import { useDispatch, useSelector } from "react-redux";
 import { postExpense } from "../../redux"
-import { Redirect } from "react-router-dom"
+import { Redirect, NavLink } from "react-router-dom"
 
 const useStyles = makeStyles((theme) => ({
     form: {
@@ -166,6 +166,7 @@ const ExpenseForm = (props) => {
                     container
                     alignItems="center"
                     justify="center"
+                    direction="column"
                 >
                     <Button
                         color="primary"
@@ -179,16 +180,17 @@ const ExpenseForm = (props) => {
                     >
                         Submit
                     </Button>
+                    {postState.loading && 
+                        <div className={classes.loading}>
+                            <CircularProgress size={20}/>
+                        </div>
+                    }
+                    {postState.error && <><p>{postState.error}</p> <NavLink to="/home">Home</NavLink></>}
                 </Grid>
             </Grid>
-            {postState.loading && 
-                <div className={classes.loading}>
-                    <CircularProgress size={20}/>
-                </div>
-            }
         </Grid>
         {
-         (finished && !postState.loading) &&
+         (finished && !postState.loading && !postState.error) &&
             <Redirect to="/home" />
         }
         </>

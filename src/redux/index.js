@@ -30,6 +30,7 @@ export const store = configureStore({
 });
 
 export const client = new ApolloClient({
+  // uri: 'http://localhost:4000/graphql/', USE THIS WITH THE LOCAL SERVER
   uri: 'https://mini-finance-api.herokuapp.com/graphql',
   onError: ({ networkError, graphQLErrors }) => {
     console.log('graphQLErrors', graphQLErrors)
