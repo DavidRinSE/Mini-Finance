@@ -1,3 +1,15 @@
+# Mini-Finance
+An app to assist you in tracking spending patterns by graphing your data in a clear way that's easy to understand!
+Find the app online here: https://mini-finance.davidr.in
+
+Be sure to check out the GraphQL Database for this project! If you are running the database locally, remember to switch the uri for this front end application to test with your local database. Swap the comment on these two lines:
+
+### src/redux/index
+```
+33: // uri: 'http://localhost:4000/graphql/', USE THIS WITH THE LOCAL SERVER
+34: uri: 'https://mini-finance-api.herokuapp.com/graphql',
+ ```
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
